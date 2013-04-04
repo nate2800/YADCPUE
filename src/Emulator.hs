@@ -33,8 +33,8 @@ printAddress :: Emulator m => (String -> m ()) -> Address -> m ()
 printAddress op addr = load addr >>= disp addr
     where disp x y = op $ show x ++ " => " ++ show y
 
-printRange :: Emulator m => (String -> m ()) -> Word16 -> Word16 -> m ()
-printRange op a b = mapM (load . Word) [a..b] >>= op . unwords . map showHexWord
+printRange :: Emulator m => ([String] -> m ()) -> Word16 -> Word16 -> m ()
+printRange op a b = mapM (load . Word) [a..b] >>= op . map showHexWord
 
 printRegisters :: Emulator m => (String -> m ()) -> m ()
 printRegisters op = mapM load regAddr >>= 
